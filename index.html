@@ -1,19 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Elite Luxury Transfer Paris - Service premium de chauffeur VIP pour CDG, Orly, Beauvais, longs trajets, mise à disposition et véhicules haut de gamme.">
     <title>Elite Luxury Transfer Paris</title>
     <style>
-        body { 
-            font-family: Arial; 
-            background: black; 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
             color: gold;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
         }
-        h1 { color: #d4af37; }
+        header {
+            padding: 40px 20px;
+            background: linear-gradient(90deg, #000, #1a1a1a);
+        }
+        h1 {
+            color: #d4af37;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: auto;
+        }
+        main {
+            padding: 40px 20px;
+        }
+        footer {
+            background-color: #111;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #888;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            font-size: 1.1em;
+        }
+        ul li {
+            margin: 8px 0;
+        }
+        #visits {
+            color: #d4af37;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <h1>🚗 Elite Luxury Transfer Paris</h1>
-    <p>Service premium de chauffeur VIP pour CDG/Orly/Beauvais</p>
+    <header>
+        <h1>🚗 Elite Luxury Transfer Paris</h1>
+        <p>Service premium de chauffeur VIP pour CDG, Orly et Beauvais</p>
+    </header>
+    <main>
+        <p>Voyagez avec élégance et confort grâce à notre flotte de véhicules haut de gamme et nos chauffeurs expérimentés.</p>
+        <p>Nous proposons également de <strong>longs trajets</strong> vers toutes destinations en France et en Europe, ainsi qu'un service de <strong>mise à disposition</strong> pour vos événements, rendez-vous professionnels ou visites touristiques.</p>
+        
+        <h2>🚘 Nos gammes de véhicules</h2>
+        <ul>
+            <li><strong>Mercedes Classe E</strong> — Gamme Berline, ou équivalent</li>
+            <li><strong>Mercedes Classe V</strong> — Mercedes Van, ou équivalent similaire</li>
+        </ul>
+
+        <p>🔢 Nombre de visites : <span id="visits">0</span></p>
+    </main>
+    <footer>
+        &copy; 2025 Elite Luxury Transfer Paris — Tous droits réservés<br>
+        Merci d'avoir regardé cette vidéo.
+    </footer>
+
+    <script>
+        fetch('https://api.countapi.xyz/hit/elite-luxury-transfer-paris.netlify.app/visites')
+            .then(res => res.json())
+            .then(res => {
+                document.getElementById('visits').innerText = res.value;
+            });
+    </script>
 </body>
 </html>
