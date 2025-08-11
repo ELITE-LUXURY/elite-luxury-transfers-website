@@ -1,84 +1,425 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Elite Luxury Transfer Paris - Service premium de chauffeur VIP pour CDG, Orly, Beauvais, longs trajets, mise à disposition et véhicules haut de gamme.">
-    <title>Elite Luxury Transfer Paris</title>
+    <title>Elite Luxury Transfer - Notre Flotte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: gold;
+        :root {
+            --primary: #000000;
+            --secondary: #d4af37;
+            --light: #f8f8f8;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Section Principale */
+        .flotte-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+        
+        .section-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        /* Filtres */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Grille de Véhicules */
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .vehicle-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .vehicle-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .vehicle-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .vehicle-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .vehicle-card:hover .vehicle-image img {
+            transform: scale(1.05);
+        }
+        
+        .vehicle-info {
+            padding: 1.5rem;
+        }
+        
+        .vehicle-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .vehicle-equivalent {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .vehicle-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .spec-item i {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+            width: 20px;
             text-align: center;
         }
-        header {
-            padding: 40px 20px;
-            background: linear-gradient(90deg, #000, #1a1a1a);
+        
+        .vehicle-description {
+            color: #555;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
         }
-        h1 {
-            color: #d4af37;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: auto;
-        }
-        main {
-            padding: 40px 20px;
-        }
-        footer {
-            background-color: #111;
-            padding: 20px;
-            font-size: 0.9em;
-            color: #888;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            font-size: 1.1em;
-        }
-        ul li {
-            margin: 8px 0;
-        }
-        #visits {
-            color: #d4af37;
+        
+        .vehicle-price {
+            display: block;
             font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .btn-book {
+            display: inline-block;
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-book:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+        
+        /* Comparateur */
+        .comparator-section {
+            margin-top: 4rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .comparator-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        
+        .comparator-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparator-table th, .comparator-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparator-table th {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .comparator-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h1 {
+                font-size: 2rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>🚗 Elite Luxury Transfer Paris</h1>
-        <p>Service premium de chauffeur VIP pour CDG, Orly et Beauvais</p>
-    </header>
-    <main>
-        <p>Voyagez avec élégance et confort grâce à notre flotte de véhicules haut de gamme et nos chauffeurs expérimentés.</p>
-        <p>Nous proposons également de <strong>longs trajets</strong> vers toutes destinations en France et en Europe, ainsi qu'un service de <strong>mise à disposition</strong> pour vos événements, rendez-vous professionnels ou visites touristiques.</p>
+    <section class="flotte-section">
+        <div class="section-header">
+            <h1><i class="fas fa-car-side"></i> Notre Gamme Exclusive</h1>
+            <p>Découvrez notre sélection de véhicules haut de gamme pour tous vos déplacements</p>
+        </div>
         
-        <h2>🚘 Nos gammes de véhicules</h2>
-        <ul>
-            <li><strong>Mercedes Classe E</strong> — Gamme Berline, ou équivalent</li>
-            <li><strong>Mercedes Classe V</strong> — Mercedes Van, ou équivalent similaire</li>
-        </ul>
-
-        <p>🔢 Nombre de visites : <span id="visits">0</span></p>
-    </main>
-    <footer>
-        &copy; 2025 Elite Luxury Transfer Paris — Tous droits réservés<br>
-        Merci d'avoir regardé cette vidéo.
-    </footer>
+        <!-- Filtres -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="berline">Berlines</button>
+            <button class="filter-btn" data-filter="van">Vans</button>
+        </div>
+        
+        <!-- Grille de Véhicules -->
+        <div class="vehicle-grid">
+            <!-- Mercedes Classe E -->
+            <div class="vehicle-card" data-category="berline">
+                <div class="vehicle-badge">Berline</div>
+                <div class="vehicle-image">
+                    <img src="images/mercedes-e-class.jpg" alt="Mercedes Classe E">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-title">Mercedes Classe E</h3>
+                    <p class="vehicle-equivalent">(ou équivalent BMW Série 5, Audi A6)</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <i class="fas fa-users"></i>
+                            <span><strong>3 passagers</strong></span>
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-suitcase"></i>
+                            <span>2 grandes valises</span>
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-wifi"></i>
+                            <span>WiFi gratuit</span>
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-snowflake"></i>
+                            <span>Climatisation</span>
+                        </div>
+                    </div>
+                    
+                    <p class="vehicle-description">
+                        La Mercedes Classe E allie élégance et performance pour vos déplacements professionnels. Confort exceptionnel avec sièges en cuir massants et ambiance lumineuse.
+                    </p>
+                    
+                    <span class="vehicle-price">À partir de 90€/trajet</span>
+                    <a href="#reservation" class="btn-book">Réserver maintenant</a>
+                </div>
+            </div>
+            
+            <!-- Mercedes Classe V -->
+            <div class="vehicle-card" data-category="van">
+                <div class="vehicle-badge">Van VIP</div>
+                <div class="vehicle-image">
+                    <img src="images/mercedes-v-class.jpg" alt="Mercedes Classe V">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-title">Mercedes Classe V</h3>
+                    <p class="vehicle-equivalent">(ou équivalent Volkswagen Multivan, Viano)</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <i class="fas fa-users"></i>
+                            <span><strong>6-8 passagers</strong></span>
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-suitcase"></i>
+                            <span>4+ valises</span>
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-glass-cheers"></i>
+                            <span>Mini-bar optionnel</span>
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Intimité totale</span>
+                        </div>
+                    </div>
+                    
+                    <p class="vehicle-description">
+                        Le Mercedes Classe V offre un espace généreux et un confort haut de gamme idéal pour les familles ou groupes. Configuration VIP avec séparation chauffeur disponible.
+                    </p>
+                    
+                    <span class="vehicle-price">À partir de 120€/trajet</span>
+                    <a href="#reservation" class="btn-book">Réserver maintenant</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparateur -->
+        <div class="comparator-section">
+            <h2 class="comparator-title"><i class="fas fa-exchange-alt"></i> Comparateur de Véhicules</h2>
+            
+            <table class="comparator-table">
+                <thead>
+                    <tr>
+                        <th>Modèle</th>
+                        <th>Passagers</th>
+                        <th>Bagages</th>
+                        <th>Prix moyen</th>
+                        <th>Usage recommandé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mercedes Classe E</strong></td>
+                        <td>3</td>
+                        <td>2 grandes</td>
+                        <td>90€</td>
+                        <td>Transferts professionnels</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mercedes Classe V</strong></td>
+                        <td>6-8</td>
+                        <td>4+</td>
+                        <td>120€</td>
+                        <td>Familles/Groupe VIP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
     <script>
-        fetch('https://api.countapi.xyz/hit/elite-luxury-transfer-paris.netlify.app/visites')
-            .then(res => res.json())
-            .then(res => {
-                document.getElementById('visits').innerText = res.value;
+        // Filtrage des véhicules
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Active le bouton cliqué
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filter = button.dataset.filter;
+                const vehicles = document.querySelectorAll('.vehicle-card');
+                
+                vehicles.forEach(vehicle => {
+                    if (filter === 'all' || vehicle.dataset.category === filter) {
+                        vehicle.style.display = 'block';
+                    } else {
+                        vehicle.style.display = 'none';
+                    }
+                });
             });
+        });
+        
+        // Animation au scroll
+        window.addEventListener('load', () => {
+            const vehicleCards = document.querySelectorAll('.vehicle-card');
+            
+            vehicleCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
     </script>
 </body>
 </html>
+```
+
